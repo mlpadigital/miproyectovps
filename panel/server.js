@@ -94,6 +94,28 @@ app.get('/api/service-status', async (req, res) => {
   }
 });
 
+// New Endpoint for Supabase Webhook
+app.post('/api/create-client-store', async (req, res) => {
+  try {
+    console.log('Received webhook:', req.body);
+    const { subdomain } = req.body;
+
+    // Basic validation
+    if (!subdomain || !/^[a-z0-9-]+$/.test(subdomain)) {
+      return res.status(400).json({ ok: false, error: 'invalid-subdomain-format' });
+    }
+
+    // Run the creation script
+    const cmd = `sudo /usr/local/bin/create_subdomain.sh ${subdomain}`;
+    const output = await run(cmd, { rejectOnError: true });
+
+    return res.json({ ok: true, message: 'Subdomain created', output });
+  } catch (e) {
+    console.error('Error creating subdomain:', e);
+    return res.status(500).json({ ok: false, error: String(e) });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`VPS panel listening on http://localhost:${PORT}`);
 });
