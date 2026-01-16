@@ -1,0 +1,15 @@
+{
+  "name": "vps-panel",
+  "version": "0.1.0",
+  "description": "Panel visual simple para VPS (estado del sistema)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.22.1",
+    "prom-client": "^14.0.0"
+  }
+}

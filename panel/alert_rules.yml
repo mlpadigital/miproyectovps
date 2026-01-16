@@ -1,0 +1,29 @@
+groups:
+  - name: vps.rules
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance down: {{ $labels.instance }}"
+          description: "Target {{ $labels.instance }} for job {{ $labels.job }} is down (up==0)."
+
+      - alert: HighLoad
+        expr: node_load1 > 2
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High load on {{ $labels.instance }}"
+          description: "1-minute load is > 2."
+
+      - alert: LowDiskRoot
+        expr: (node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"}) < 0.15
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low disk on root ({{ $labels.instance }})"
+          description: "Less than 15% available on /."

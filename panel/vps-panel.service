@@ -1,0 +1,14 @@
+[Unit]
+Description=VPS Panel Service
+After=network.target
+
+[Service]
+Type=simple
+User=martin
+WorkingDirectory=/home/martin/miproyectovps/panel
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

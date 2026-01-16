@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VPS Panel — Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="brand">VPS<span>•</span>CORE</div>
+    <nav>
+      <a class="active" href="#dashboard">Dashboard</a>
+      <a href="#services">Servicios</a>
+      <a href="#logs">Logs</a>
+      <a href="#settings">Ajustes</a>
+      <a href="#admin">Admin</a>
+    </nav>
+    <div class="version">v0.1</div>
+  </div>
+
+  <main class="main">
+    <header class="topbar">
+      <h1 id="page-title">Dashboard</h1>
+      <div class="controls">
+        <button id="refresh">Refrescar</button>
+        <div id="time"></div>
+      </div>
+    </header>
+
+    <section class="cards" id="dashboard">
+      <div class="card">
+        <h3>Nginx</h3>
+        <pre id="nginx">Cargando...</pre>
+      </div>
+      <div class="card">
+        <h3>UFW</h3>
+        <pre id="ufw">Cargando...</pre>
+      </div>
+      <div class="card">
+        <h3>Node / npm</h3>
+        <pre id="node">Cargando...</pre>
+      </div>
+      <div class="card">
+        <h3>Estado</h3>
+        <pre id="status">Cargando...</pre>
+      </div>
+    </section>
+
+    <section id="services" class="section">
+      <h2>Servicios</h2>
+      <div class="card">
+        <button class="action" data-service="nginx">Reiniciar Nginx</button>
+        <button class="action" data-service="vps-panel">Reiniciar Panel</button>
+      </div>
+    </section>
+
+    <section id="logs" class="section">
+      <h2>Logs recientes (estado de servicios)</h2>
+      <pre id="svc-status" class="logbox">Cargando...</pre>
+    </section>
+
+    <section id="admin" class="section">
+      <h2>Administración</h2>
+      <div class="card">
+        <label>Usuario admin: <strong>admin</strong></label>
+        <div style="margin-top:8px">
+          <button id="regen-pass">Regenerar contraseña admin</button>
+          <button id="backup-now">Backup ahora</button>
+          <button id="copy-commands">Mostrar comandos sudo permitidos</button>
+        </div>
+        <pre id="admin-output" class="logbox" style="margin-top:12px"></pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Panel VPS</title>
+  <style>body{font-family:Arial,Helvetica,sans-serif;padding:20px}button{margin:4px}</style>
+</head>
+<body>
+  <h1>Panel del VPS</h1>
+  <div id="status">Cargando estado...</div>
+  <h2>Servicios</h2>
+  <div>
+    <strong>nginx</strong>
+    <button onclick="action('nginx','restart')">Reiniciar</button>
+    <button onclick="action('nginx','status')">Estado</button>
+    <div id="nginx"></div>
+  </div>
+  <div>
+    <strong>ufw</strong>
+    <button onclick="action('ufw','status')">Estado</button>
+    <div id="ufw"></div>
+  </div>
+
+  <script>
+    async function refresh(){
+      const r = await fetch('/status')
+      const j = await r.json()
+      document.getElementById('status').innerText = `Node: ${j.node} | Nginx: ${j.nginx}`
+      document.getElementById('nginx').innerText = j.nginx
+      document.getElementById('ufw').innerText = j.ufw
+    }
+    async function action(service, act){
+      document.getElementById(service).innerText = 'Procesando...'
+      const r = await fetch('/action',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({service,action:act})})
+      const j = await r.json()
+      document.getElementById(service).innerText = JSON.stringify(j)
+      setTimeout(refresh,1000)
+    }
+    refresh()
+    setInterval(refresh,5000)
+  </script>
+</body>
+</html>

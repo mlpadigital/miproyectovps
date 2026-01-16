@@ -1,0 +1,13 @@
+[Unit]
+Description=VPS Panel (simple)
+After=network.target
+
+[Service]
+Type=simple
+User=martin
+WorkingDirectory=/home/martin/miproyectovps/panel
+ExecStart=/usr/bin/node /home/martin/miproyectovps/panel/index.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
