@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>VPS Panel — Dashboard</title>
   <link rel="stylesheet" href="/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <div class="sidebar">
     <div class="brand">VPS<span>•</span>CORE</div>
     <nav>
       <a class="active" href="#dashboard">Dashboard</a>
+      <a href="#subdomains">Tiendas</a>
       <a href="#services">Servicios</a>
       <a href="#logs">Logs</a>
       <a href="#settings">Ajustes</a>
@@ -44,6 +46,18 @@
       <div class="card">
         <h3>Estado</h3>
         <pre id="status">Cargando...</pre>
+      </div>
+    </section>
+    
+    <section id="subdomains" class="section">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h2>Tiendas (Subdominios)</h2>
+        <button id="add-subdomain-btn" class="action">Agregar Manual</button>
+      </div>
+      <div class="card">
+        <div id="subdomains-list" class="subdomains-grid">
+          Cargando tiendas...
+        </div>
       </div>
     </section>
 
