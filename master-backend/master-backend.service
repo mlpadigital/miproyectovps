@@ -1,0 +1,15 @@
+[Unit]
+Description=Master Store Payment Backend
+After=network.target
+
+[Service]
+Environment=NODE_ENV=production
+Type=simple
+User=martin
+WorkingDirectory=/home/martin/master-backend
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
