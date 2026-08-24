@@ -1,0 +1,3 @@
+## Pages
+- [Admin Panel](/adminpanel): Admin panel for managing clients, stores, and membership plans
+- [MlpaDigital - Escala tu Negocio Globalmente](/landing): Plataforma todo en uno para gestión de clientes, creación de tiendas y pagos globales.

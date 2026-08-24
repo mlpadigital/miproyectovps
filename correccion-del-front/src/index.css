@@ -1,0 +1,151 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+
+body {
+  @apply bg-slate-900 text-white antialiased;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-amber-400 to-orange-500;
+  }
+
+  /* Theme Visual Overrides */
+  
+  /* DarkTech Theme */
+  .theme-darktech .product-card {
+    @apply bg-slate-800 border-slate-700 shadow-lg rounded-none transition-all duration-300;
+  }
+  .theme-darktech .product-card:hover {
+    @apply shadow-[0_0_15px_rgba(59,130,246,0.3)] border-blue-500/50 -translate-y-1;
+  }
+  .theme-darktech .product-card-image-wrapper {
+    @apply bg-slate-900 border-b border-slate-700 p-6;
+  }
+  .theme-darktech .product-card-title {
+    @apply text-slate-200 font-mono tracking-tight;
+  }
+  .theme-darktech .product-card-price {
+    @apply text-blue-400;
+  }
+  .theme-darktech .product-card-button {
+    @apply bg-blue-600 hover:bg-blue-500 rounded-none shadow-[0_0_10px_rgba(59,130,246,0.4)];
+  }
+
+  /* Marketplace Theme */
+  .theme-marketplace .product-card {
+    @apply bg-white border-slate-200 rounded-sm shadow-sm transition-all;
+  }
+  .theme-marketplace .product-card:hover {
+    @apply shadow-md;
+  }
+  .theme-marketplace .product-card-image-wrapper {
+    @apply bg-white p-2 border-b border-slate-100;
+  }
+  .theme-marketplace .product-card-title {
+    @apply text-slate-800 text-sm font-normal line-clamp-3 leading-snug;
+  }
+  .theme-marketplace .product-card-price {
+    @apply text-2xl font-normal text-slate-900 tracking-tight;
+  }
+  .theme-marketplace .product-card-button {
+    @apply bg-[#3483fa] hover:bg-[#2968c8] text-white rounded-md w-full h-8 mt-2 shadow-none flex gap-2;
+  }
+  .theme-marketplace .product-card-button svg {
+    @apply hidden; /* Hide the icon, show text via CSS */
+  }
+  .theme-marketplace .product-card-button::after {
+    content: "Comprar";
+    @apply text-sm font-medium;
+  }
+  .theme-marketplace .product-card .mt-auto {
+    @apply flex-col items-start gap-1;
+  }
+
+  /* Restaurant Theme */
+  .theme-restaurant .product-card {
+    @apply bg-white border-orange-100 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(239,68,68,0.1)] transition-all overflow-hidden border-2;
+  }
+  .theme-restaurant .product-card:hover {
+    @apply border-red-200 -translate-y-2;
+  }
+  .theme-restaurant .product-card-image-wrapper {
+    @apply bg-orange-50/50 p-6;
+  }
+  .theme-restaurant .product-card-image-wrapper img {
+    @apply drop-shadow-xl hover:scale-110 transition-transform duration-500;
+  }
+  .theme-restaurant .product-card-title {
+    @apply text-slate-900 font-bold text-xl text-center;
+  }
+  .theme-restaurant .product-card-price {
+    @apply text-red-500 text-center w-full block text-2xl;
+  }
+  .theme-restaurant .product-card-button {
+    @apply bg-red-500 hover:bg-red-600 rounded-full w-12 h-12 shadow-lg hover:shadow-red-500/30 transition-all mx-auto mt-2;
+  }
+  .theme-restaurant .product-card .mt-auto {
+    @apply flex-col items-center justify-center;
+  }
+}
